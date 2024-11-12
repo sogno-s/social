@@ -9,6 +9,7 @@ CITIES = [
     # Добавьте другие города по необходимости
 ]
 
+# Модель профиля пользователя
 class UserProfile(models.Model):
     # Связь с моделью User из Django для аутентификации
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -34,6 +35,7 @@ class UserProfile(models.Model):
     def __str__(self):
         return f"{self.last_name} {self.first_name}"
 
+# Модель изображения пользователя
 class UserImage(models.Model):
     # Изображение пользователя
     image = models.ImageField(upload_to='user_images/')
@@ -42,6 +44,7 @@ class UserImage(models.Model):
     def __str__(self):
         return self.image.name
 
+# Модель поста
 class Post(models.Model):
     # Связь с профилем пользователя, который создал пост
     author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
@@ -62,6 +65,7 @@ class Post(models.Model):
     def __str__(self):
         return f"Post by {self.author.user.username} at {self.created_at}"
 
+# Модель сообщения
 class Message(models.Model):
     # Отправитель сообщения
     sender = models.ForeignKey(UserProfile, related_name='sent_messages', on_delete=models.CASCADE)
