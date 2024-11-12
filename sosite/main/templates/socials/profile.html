@@ -1,0 +1,31 @@
+{% extends 'socials/base.html' %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<h1>{{ profile.user.username }}</h1>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <img src="{{ profile.avatar.url }}" class="card-img-top" alt="Аватарка">
+            <div class="card-body">
+                <h5 class="card-title">{{ profile.first_name }} {{ profile.last_name }}</h5>
+                <p class="card-text">Дата рождения: {{ profile.birth_date }}</p>
+                <p class="card-text">Город: {{ profile.city }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <h2>Посты</h2>
+        {% for post in posts %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.content }}</p>
+                    <p class="card-text"><small class="text-muted">{{ post.created_at }}</small></p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

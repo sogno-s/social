@@ -1,0 +1,40 @@
+{% extends 'socials/base.html' %}
+
+{% block title %}Поиск пользователей{% endblock %}
+
+{% block content %}
+<h1>Поиск пользователей</h1>
+<form method="get" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="q" class="form-control" placeholder="Поиск по имени пользователя">
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Поиск</button>
+        </div>
+    </div>
+</form>
+<ul class="list-group">
+    {% for user in page_obj %}
+        <li class="list-group-item">
+            <a href="{% url 'socials:send_message' user.id %}">{{ user.user.username }}</a>
+        </li>
+    {% endfor %}
+</ul>
+
+<div class="pagination mt-4">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; первая</a>
+            <a href="?page={{ page_obj.previous_page_number }}">предыдущая</a>
+        {% endif %}
+
+        <span class="current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">следующая</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">последняя &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

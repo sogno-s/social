@@ -1,0 +1,20 @@
+{% extends 'socials/base.html' %}
+
+{% block title %}Чат с {{ receiver.user.username }}{% endblock %}
+
+{% block content %}
+<h1>Чат с {{ receiver.user.username }}</h1>
+<div class="chat-history">
+    {% for message in messages %}
+    <div class="message {% if message.sender == request.user.userprofile %}sent{% else %}received{% endif %}">
+        <div class="message-content">{{ message.content }}</div>
+        <div class="message-time">{{ message.sent_at }}</div>
+    </div>
+    {% endfor %}
+</div>
+<form method="post" class="mt-3">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'socials/base.html' %}
+
+{% block title %}Чаты{% endblock %}
+
+{% block content %}
+<h1>Ваши чаты</h1>
+<div class="list-group">
+    {% for chat in chat_list %}
+    <a href="{% url 'socials:send_message' chat.other_user.id %}" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <div class="d-flex align-items-center">
+                <img src="{{ chat.other_user.avatar.url }}" alt="{{ chat.other_user.user.username }}" class="rounded-circle" width="50" height="50">
+                <h5 class="mb-1 ml-3">{{ chat.other_user.user.username }}</h5>
+            </div>
+            <small>{{ chat.last_message.sent_at }}</small>
+        </div>
+        <p class="mb-1">{{ chat.last_message.content }}</p>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}
